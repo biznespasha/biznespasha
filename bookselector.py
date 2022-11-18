@@ -1,80 +1,106 @@
 from library import books
-#вводим атора
 def search():
-    while True:
-        author = input("Введите автора:")
-        if author in books:
-            writer = books[author]
-        elif author not in books:
-            print("Такого автора нет")
-            continue
-
-#вводим книгу
-        book = input(("Введите книгу:"))
-        if book not in writer:
-            print("такой книги нет")
-            continue
-        for i, show in enumerate(writer):
-            if book in writer[i]:
-                print("Вот ваша книга")
-                new = writer[i]
-                writer[i] = new
-                return show, author
-                break
-
+    #search writer
+    writersearch = input("Введите автора")
+    if writersearch in books:
+        author = books[writersearch]
+        print("Такой автор есть")
+    else:
+        return "Такого автора нет"
+    booksearch = input("Введите книгу")
+    if booksearch not in author:
+        return  "Такой книги нет"
+    for i, show in enumerate(author):
+        if booksearch in author[i]:
+            print("Такая книга есть")
+            new = author[i]
+            author[i] = new
+        return show, writersearch
 print(search())
-
-def addbook():
+from library import books
+def add():
     while True:
-            user = input("Может хотите добавить книгу? Нажмите " "'add'" ", если хотите пропустить напишите " "'skip':")
-            if user == "skip":
-                break
-            elif user == "add":
-                added = input("Введи автора которого хочешь дополнить книгой")
-                if added  not in books:
-                    print("такого автора нет")
-                    continue
-                elif added in books:
-                    bookadd = books[added]
-                    addedbook = input("Введи книгу данного автора которую мы забыли указать")
-                    if addedbook in bookadd:
-                        print("Такая книга есть")
-                    elif addedbook not in bookadd:
-                            bookadd.append(addedbook)
-                            print("Список книг обновлен,не веришь? Убедись сам :)")
-                            print(bookadd)
-           # print(added)
-print(addbook())
+        user1 = input("Введите 'da' если хотите добавить или 'net' если не хотите?")
+        if user1 == "net":
+            break
+        elif user1 == "da":
+            writersearch = input("Введите автора")
+            if writersearch in books:
+                author = books[writersearch]
+            elif writersearch not in books:
+                print("Такого автора нет, выбретие автора из настоящего списка")
+                continue
+            user = input("введи книгу")
+            if user in author:
+                print("Книга есть")
+                continue
+            elif user not in author:
+                for i, show in enumerate(author):
+                    if user not in author[i]:
+                        new = author[i]
+                        author[i] = new
+                        author.append(user)
+                        print("Книга добавлена")
+                        print(author)
+                        break
+print(add())
+from library import books
 def delete():
     while True:
-        user = input("Может хотите удалить книгу? Нажмите " "'del'" ", если хотите пропустить напишите" "'skip':")
-        if user == "skip":
+        user1 = input("Хотите удалить книгу 'da' или 'net' ")
+        if user1 == "net":
             break
-        elif user == "del":
-            user = input("Введите автора книги которую хотим удалить")
-            if user not in books:
-                print("такого автора нет")
+        elif user1 == "da":
+            writersearch = input("Введите автора")
+            if writersearch in books:
+                author = books[writersearch]
+            elif writersearch not in books:
+                print("Такого автора нет, выбретие автора из настоящего списка")
                 continue
-            elif user in books:
-                bookdel = books[user]
-                delbook = input("Введи книгу мы ее удалим")
-                if delbook not in bookdel:
-                    print("Увы, мы не можем удалить того, чего нет :)")
-                elif delbook in bookdel:
-                    bookdel.remove(delbook)
-                    print("Список книг изменен")
-                    print(bookdel)
+            bookdel = input("Введите книгу автора")
+            for i, show in enumerate(author):
+                if bookdel not in author:
+                    print("такой книги нет")
+                    break
+                elif bookdel in author[i]:
+                    new = author[i]
+                    author[i] = new
+                    author.remove(bookdel)
+                    print("книга удалена")
+                    print(author)
+                    break
 print(delete())
-def pop():
-    while True:
-        user = input("Хотите Выбрать другую книгу?")
-        if user == "yes":
-            print("А вы любите читать )")
-            return search()
-        elif user == "no":
-            print("Приятного чтения")
-            break
-print(pop())
+from library import books
+def addauthor():
+    user = input("Хотите ли добавить автора?")
+    if user == "da":
+        author = input("Введите автора которого хотите добавить")
+        if author in books:
+            return "Такой автора уже сть"
+        elif author not in books:
+            books[author] = []
+            print(books.keys())
+print(addauthor())
+def repeat():
+    user = input("может хотите выбрвть другую книгу?")
+    if user == "da":
+        return search()
+    if user == "net":
+        print("Приятного чтения")
+print(repeat())
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
